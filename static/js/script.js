@@ -188,32 +188,39 @@ document.addEventListener('DOMContentLoaded', () => {
         const content = document.createElement('div');
         content.className = 'message-content';
 
-        // Convert newlines to HTML line breaks
-        const formattedText = text.replace(/\n/g, '<br>');
+        if (sender === 'user') {
+            window.lastUserMessageText = text;
+        }
+
+        let formattedText = text;
+        if (sender === 'bot' && window.marked && typeof window.marked.parse === 'function') {
+            try {
+                formattedText = window.marked.parse(text);
+            } catch (e) {
+                formattedText = text.replace(/\n/g, '<br>');
+            }
+        } else {
+            formattedText = text.replace(/\n/g, '<br>');
+        }
         
         let headerHtml = '';
         if (sender === 'bot' && intent && intent !== 'error') {
-            headerHtml = `<div style="font-size:0.75rem; color:#38BDF8; font-weight:700; margin-bottom:0.45rem; text-transform:uppercase; letter-spacing:0.05em;">⚡ Intent: ${intent.replace('_', ' ')} &bull; ${timestamp}</div>`;
+            headerHtml = `<div class="message-header-info">Campus AI Assistant &bull; ${timestamp}</div>`;
         } else if (sender === 'user') {
-            headerHtml = `<div style="font-size:0.75rem; color:rgba(255,255,255,0.7); font-weight:500; margin-bottom:0.35rem; text-align:right;">You &bull; ${timestamp}</div>`;
+            headerHtml = `<div class="message-header-info">You &bull; ${timestamp}</div>`;
         }
 
         let actionBarHtml = '';
         if (sender === 'bot') {
             actionBarHtml = `
                 <div class="message-actions-bar">
-                    <button class="action-icon-btn copy-msg-btn" title="Copy response">
+                    <button class="action-icon-btn copy-msg-btn" title="Copy response" type="button">
                         <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                         <span class="copy-label">Copy</span>
                     </button>
-                    <button class="action-icon-btn like-msg-btn" title="Good response">
-                        <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-                    </button>
-                    <button class="action-icon-btn dislike-msg-btn" title="Bad response">
-                        <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
-                    </button>
-                    <button class="action-icon-btn regenerate-msg-btn" title="Regenerate response">
+                    <button class="action-icon-btn regenerate-msg-btn" title="Regenerate response" type="button">
                         <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                        <span>Regenerate Response</span>
                     </button>
                 </div>
             `;
@@ -234,16 +241,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, 2000);
                 });
             }
-            const likeBtn = content.querySelector('.like-msg-btn');
-            const dislikeBtn = content.querySelector('.dislike-msg-btn');
-            if (likeBtn) likeBtn.addEventListener('click', () => { likeBtn.style.color = '#38BDF8'; });
-            if (dislikeBtn) dislikeBtn.addEventListener('click', () => { dislikeBtn.style.color = '#EF4444'; });
+            const regenBtn = content.querySelector('.regenerate-msg-btn');
+            if (regenBtn) {
+                regenBtn.addEventListener('click', () => {
+                    if (window.lastUserMessageText) {
+                        sendMessage(window.lastUserMessageText);
+                    }
+                });
+            }
         }
 
         row.appendChild(avatar);
         row.appendChild(content);
 
-        messagesContainer.appendChild(row);
+        let innerContainer = messagesContainer.querySelector('.chat-messages-inner-container');
+        if (!innerContainer) {
+            innerContainer = document.createElement('div');
+            innerContainer.className = 'chat-messages-inner-container';
+            while (messagesContainer.firstChild) {
+                innerContainer.appendChild(messagesContainer.firstChild);
+            }
+            messagesContainer.appendChild(innerContainer);
+        }
+
+        innerContainer.appendChild(row);
         scrollToBottom();
     }
 
@@ -280,7 +301,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         row.appendChild(avatar);
         row.appendChild(content);
-        messagesContainer.appendChild(row);
+
+        let innerContainer = messagesContainer.querySelector('.chat-messages-inner-container');
+        if (!innerContainer) {
+            innerContainer = document.createElement('div');
+            innerContainer.className = 'chat-messages-inner-container';
+            while (messagesContainer.firstChild) {
+                innerContainer.appendChild(messagesContainer.firstChild);
+            }
+            messagesContainer.appendChild(innerContainer);
+        }
+
+        innerContainer.appendChild(row);
         scrollToBottom();
     }
 
@@ -349,6 +381,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Input Event Listeners
     if (sendBtn) sendBtn.addEventListener('click', () => sendMessage());
 
+    const attachmentBtn = document.getElementById('attachment-btn');
+    const voiceBtn = document.getElementById('voice-btn');
+    if (attachmentBtn) attachmentBtn.addEventListener('click', () => {
+        const userInputBox = document.getElementById('user-input');
+        if (userInputBox) userInputBox.placeholder = "📎 [File Attachment Simulation Ready] Type your message...";
+    });
+    if (voiceBtn) voiceBtn.addEventListener('click', () => {
+        const userInputBox = document.getElementById('user-input');
+        if (userInputBox) userInputBox.placeholder = "🎙️ [Voice Input Simulation Active] Listening to query...";
+    });
+
     if (userInput) {
         userInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -360,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
         userInput.addEventListener('input', () => {
             if (sendBtn) sendBtn.disabled = userInput.value.trim() === '';
             userInput.style.height = 'auto';
-            userInput.style.height = `${Math.min(userInput.scrollHeight, 140)}px`;
+            userInput.style.height = `${Math.min(userInput.scrollHeight, 160)}px`;
         });
     }
 
