@@ -1,0 +1,22 @@
+# Python Virtual Environments & Caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Secret API Keys & Sensitive Data (SECURITY PROTECTION)
+gemini_api_key.txt
+.env
+*.key
+*.secret
+
+# OS System & IDE Files
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+
+# Local Downloadable Zip Archives (To keep repo lightweight & clean)
+*.zip

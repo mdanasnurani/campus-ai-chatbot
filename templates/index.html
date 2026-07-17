@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus AI – Clean & Aesthetic Educational Assistant</title>
+    <!-- Google Fonts: Outfit and Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Cache-Busted Landing Page CSS v12.0 (Multi-Device Responsive Optimization) -->
+    <link rel="stylesheet" href="/static/css/landing.css?v=12.0">
+</head>
+<body>
+    <!-- 1. Interactive 3D Neural Network Canvas Background -->
+    <canvas id="neural-canvas"></canvas>
+
+    <!-- 2. 3D Moving Background Glow Orbs -->
+    <div class="bg-orbs-container">
+        <div class="bg-orb orb-1"></div>
+        <div class="bg-orb orb-2"></div>
+        <div class="bg-orb orb-3"></div>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <nav class="landing-nav glass-nav">
+        <div class="nav-container">
+            <a href="/" class="brand-logo">
+                <div class="logo-icon-glow">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/><path d="M19 2L19.8 4.2L22 5L19.8 5.8L19 8L18.2 5.8L16 5L18.2 4.2L19 2Z" opacity="0.65"/><path d="M5 16L5.6 17.4L7 18L5.6 18.6L5 20L4.4 18.6L3 18L4.4 17.4L5 16Z" opacity="0.65"/></svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">Campus AI</span>
+                    <span class="brand-tag">High-Precision Educational Engine</span>
+                </div>
+            </a>
+
+            <div class="nav-links">
+                <a href="#why-us">Why Us</a>
+                <a href="#interactive-demo">Live Preview</a>
+                <a href="#how-it-works">Process</a>
+                <a href="#features">Capabilities</a>
+                <a href="#faqs">FAQs</a>
+            </div>
+
+            <div class="nav-actions">
+                <a href="/app" class="btn btn-primary nav-cta glow-btn">
+                    <span>Launch AI Chat</span>
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="landing-main">
+        <!-- Hero Section -->
+        <section class="landing-hero">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="live-pulse"></span>
+                    <span class="badge-text">Onboarding 10,000+ Students & Faculty This Semester</span>
+                    <span style="color: #38BDF8; font-weight:800;">→</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Learn faster.<br>
+                    <span class="gradient-text">Score higher.</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    The next-generation campus AI that resolves college FAQs in 100 milliseconds and tutors programming, mathematics, and complex academic assignments with clean precision.
+                </p>
+
+                <div class="hero-cta-group">
+                    <a href="/app" class="btn btn-primary btn-lg glow-btn">
+                        <span>Launch AI Chat App</span>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <a href="#interactive-demo" class="btn btn-secondary btn-lg">
+                        <span>Try Interactive Demo</span>
+                    </a>
+                </div>
+
+                <!-- Clean & Aesthetic Hologram Feature Pill Bar -->
+                <div class="clean-badge-bar reveal-card">
+                    <div class="hologram-pill" title="Powered by localized Scikit-Learn NLP">
+                        <span>⚡</span> 100ms FAQ Classification
+                    </div>
+                    <div class="hologram-pill" title="Switches automatically to Generative AI for coding & math">
+                        <span>🚀</span> Real Educational AI Active
+                    </div>
+                    <div class="hologram-pill" title="No paywalls or hidden subscriptions ever">
+                        <span>💎</span> 100% Free & Unlimited
+                    </div>
+                    <div class="hologram-pill" title="Built specifically for University curricula">
+                        <span>🔬</span> College Exam Curated
+                    </div>
+                </div>
+
+                <!-- Trusted By Bar -->
+                <div class="trusted-by reveal-card">
+                    <span class="trusted-text">Trusted by 10,000+ Students across top Universities & Technical Institutes</span>
+                    <div class="trusted-logos">
+                        <span class="logo-item">🎓 TECH CAMPUS</span>
+                        <span class="logo-item">⚡ VELOCITY ACADEMY</span>
+                        <span class="logo-item">💻 PROMPT SCHOLAR</span>
+                        <span class="logo-item">🔬 EDUMIST</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Glowing Horizon -->
+            <div class="hero-glow-horizon"></div>
+        </section>
+
+        <!-- Interactive AI Live Playground -->
+        <section class="interactive-demo-section" id="interactive-demo">
+            <div class="section-header reveal-card">
+                <span class="section-pill">INTERACTIVE PLAYGROUND</span>
+                <h2>Test The AI Engine Right Here</h2>
+                <p>Click any prompt below to watch our hybrid Scikit-Learn + Generative AI engine answer in real time before you launch the full app.</p>
+            </div>
+
+            <div class="playground-card tilt-card reveal-card">
+                <div class="playground-header">
+                    <div class="window-buttons">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <span class="playground-title">⚡ Campus AI Live Playground (Test Online)</span>
+                    <span class="playground-status"><span class="live-pulse" style="display:inline-block; margin-right:6px;"></span> 100% Online</span>
+                </div>
+
+                <!-- Prompt Chips -->
+                <div class="prompt-chips">
+                    <button class="chip-btn active" data-prompt="admissions">⚡ Check B.Tech Fee & Admissions</button>
+                    <button class="chip-btn" data-prompt="python">💻 Explain Python Polymorphism with Code</button>
+                    <button class="chip-btn" data-prompt="calculus">📐 Step-by-Step Calculus Derivative</button>
+                    <button class="chip-btn" data-prompt="hostel">🏛️ Campus Hostel Curfew & Library Rules</button>
+                </div>
+
+                <div class="playground-body" id="playground-output">
+                    <div class="mock-message user">
+                        <div class="mock-avatar">👤</div>
+                        <div class="mock-text" id="live-user-query">Check B.Tech Fee & Admissions</div>
+                    </div>
+                    <div class="mock-message bot">
+                        <div class="mock-avatar">⚡</div>
+                        <div class="mock-text" id="live-bot-reply">
+                            <strong>⚡ Campus FAQ Engine (Resolved in 84ms)</strong><br><br>
+                            The B.Tech annual tuition fee is divided into two convenient semester installments. Admissions for the upcoming academic session are currently open! You can apply online via the student portal with your Class 12th / JEE entrance score card.<br><br>
+                            <em>Need personal counseling? Visit Administration Block Room 102 between 9:00 AM – 4:30 PM.</em>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="playground-footer">
+                    <a href="/app" class="btn btn-primary glow-btn" style="width: 100%; justify-content: center;">
+                        <span>Launch Full Interactive Chat Experience</span>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Us Section (3D Tilt Bento Grid) -->
+        <section class="why-section" id="why-us">
+            <div class="section-header reveal-card">
+                <span class="section-pill">WHY US?</span>
+                <h2>Why Students Stick With Us</h2>
+                <p>We combine clarity, trust, and high-performance hybrid AI design to deliver educational results that actually matter.</p>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Card 1 -->
+                <div class="tilt-card reveal-card">
+                    <div class="card-icon-wrapper">
+                        <span class="card-icon">🏛️</span>
+                    </div>
+                    <h3>Instant Campus FAQ</h3>
+                    <p>Get exact answers about B.Tech fee installments, semester exam schedules, hostel regulations, and library timings in milliseconds using our localized NLP classifier.</p>
+                    <div class="bento-visual visual-faq">
+                        <div class="mock-badge">100% Accuracy</div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="tilt-card reveal-card">
+                    <div class="card-icon-wrapper">
+                        <span class="card-icon">⚡</span>
+                    </div>
+                    <h3>High-Converting Code Tutor</h3>
+                    <p>Clean explanations built for students. Python, C++, Object-Oriented Programming, and Data Structures broken down with real-world working examples.</p>
+                    <div class="bento-visual visual-code">
+                        <code>def solve_algorithm():<br>&nbsp;&nbsp;&nbsp;&nbsp;return "O(1) Mastery"</code>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="tilt-card reveal-card">
+                    <div class="card-icon-wrapper">
+                        <span class="card-icon">🎯</span>
+                    </div>
+                    <h3>Maximum Return on Study Time</h3>
+                    <p>Real value, no fluff. Every explanation is structured with clear bullet points, key concepts, and actionable study checklists tailored for exams.</p>
+                    <div class="bento-stat">
+                        <span class="stat-num" data-target="120%">120%</span>
+                        <span class="stat-label">average boost in concept retention</span>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="tilt-card reveal-card">
+                    <div class="card-icon-wrapper">
+                        <span class="card-icon">🛡️</span>
+                    </div>
+                    <h3>100% Free & No Login Needed</h3>
+                    <p>No subscriptions or paywalls. Access our hybrid Scikit-Learn + Generative AI engine completely free, or connect your own Google Gemini key for instant speed.</p>
+                    <div class="bento-visual visual-steps">
+                        <div class="step-dot"></div>
+                        <div class="step-dot"></div>
+                        <div class="step-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="process-section" id="how-it-works">
+            <div class="section-header reveal-card">
+                <span class="section-pill">PROCESS</span>
+                <h2>The Process: Fast, Clear, Done</h2>
+                <p>No endless textbooks. No confusing portals. Just a streamlined educational process that works and delivers fast answers.</p>
+            </div>
+
+            <div class="process-grid">
+                <div class="process-card reveal-card">
+                    <div class="process-num">01</div>
+                    <div class="process-icon">💬</div>
+                    <h3>Share Your Question</h3>
+                    <p>Type any campus inquiry, programming problem, or academic assignment topic right into our interactive chat interface.</p>
+                    <div class="process-visual">
+                        <div class="mock-input">"When are semester exams starting?"</div>
+                    </div>
+                </div>
+
+                <div class="process-card reveal-card">
+                    <div class="process-num">02</div>
+                    <div class="process-icon">🧠</div>
+                    <h3>Hybrid AI Classification</h3>
+                    <p>Our Scikit-Learn Naive Bayes engine instantly verifies if it's a campus FAQ, while our Generative AI handles complex conceptual reasoning.</p>
+                    <div class="process-visual">
+                        <div class="mock-tag">Intent: exam_schedules (0.864)</div>
+                    </div>
+                </div>
+
+                <div class="process-card reveal-card">
+                    <div class="process-num">03</div>
+                    <div class="process-icon">🚀</div>
+                    <h3>Instant Mastery & Success</h3>
+                    <p>Receive clear, beautifully formatted summaries, code blocks, and guidance right on your screen in seconds.</p>
+                    <div class="process-visual">
+                        <div class="mock-result">✨ Exam schedule & prep tips ready!</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deep Philosophy & 3D Tilt Mockup Section -->
+        <section class="philosophy-section" id="features">
+            <div class="philosophy-container">
+                <div class="philosophy-left reveal-card">
+                    <span class="section-pill">OUR PHILOSOPHY</span>
+                    <h2>Don't settle for template-looking answers.</h2>
+                    <p>We design every AI response to match your college curriculum and exam goals. It doesn't just sound smart—it actually helps you understand the core mechanics behind algorithms, mathematics, and campus procedures.</p>
+                    <a href="/app" class="btn btn-primary glow-btn" style="align-self: flex-start; margin-top: 1rem;">
+                        <span>Start AI Chat Now</span>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+
+                <div class="philosophy-right reveal-card">
+                    <div class="mockup-wrapper-3d">
+                        <div class="mockup-panel tilt-card">
+                            <div class="mockup-header">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                                <span class="mockup-title">AI Hybrid Inference Engine (3D Tilt Active)</span>
+                            </div>
+                            <div class="mockup-body">
+                                <div class="mock-message bot">
+                                    <div class="mock-avatar">⚡</div>
+                                    <div class="mock-text">
+                                        <strong>Real Educational AI Active</strong><br>
+                                        Ask me anything about Object-Oriented Programming in Python or your B.Tech fee structure!
+                                    </div>
+                                </div>
+                                <div class="mock-message user">
+                                    <div class="mock-avatar">👤</div>
+                                    <div class="mock-text">Explain polymorphism with a short example.</div>
+                                </div>
+                                <div class="mock-message bot">
+                                    <div class="mock-avatar">⚡</div>
+                                    <div class="mock-text">
+                                        Polymorphism allows methods to take different forms based on the object calling them! Here is how you write it clean...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Clean Overlapping Feature Cards -->
+                        <div class="mockup-overlap-card mockup-overlap-1">
+                            ⚡ <strong>Hybrid Engine:</strong> Switched to Academic LLM in 12ms
+                        </div>
+                        <div class="mockup-overlap-card mockup-overlap-2">
+                            🏆 <strong>#1 College AI Engine</strong> • 10,000+ Active Students
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Accordion Section -->
+        <section class="faq-section" id="faqs">
+            <div class="section-header reveal-card">
+                <span class="section-pill">FAQS</span>
+                <h2>Questions? We've got answers.</h2>
+                <p>We've answered the most common questions below. If you still need help, just ask the AI directly in chat!</p>
+            </div>
+
+            <div class="faq-accordion reveal-card">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How fast does Campus AI answer my questions?</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We typically answer within 100 milliseconds using our localized Scikit-Learn FAQ classifier for campus rules, admissions, and fee breakdowns, or within 1 to 2 seconds using our high-capacity Generative AI model for complex coding and academic concepts.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Is this AI service completely free for students?</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! Campus AI is 100% free with unlimited queries. We also provide a built-in Google Gemini API key integration inside the chat sidebar—allowing you to paste your own free API key for ultra-high rate limits and instant capacity.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can I ask complex programming and engineering questions?</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely. When you ask outside basic campus FAQs, the system automatically transitions to Real Educational AI mode. It can write Python scripts, explain data structures, solve calculus equations, and break down assignment topics.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Does the chat interface save my conversation history?</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, your chat history is saved directly inside your browser's local storage so you can close the tab and return later right where you left off. You can clear your history anytime with a single click.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom CTA Banner -->
+        <section class="cta-section">
+            <div class="cta-banner reveal-card">
+                <div class="cta-icon">⚡</div>
+                <h2>Ready to launch into academic mastery that actually works?</h2>
+                <p>Let Campus AI transform the way you study, prepare for exams, and navigate college life. Clean, fast, and ready right now.</p>
+                <a href="/app" class="btn btn-primary btn-lg glow-btn" style="margin-top: 1.75rem;">
+                    <span>Start AI Chat Now</span>
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <div class="brand-logo">
+                    <div class="logo-icon-glow">⚡</div>
+                    <span class="brand-name">Campus AI</span>
+                </div>
+                <p>Helping students learn faster and navigate campus life with high-converting AI assistance.</p>
+            </div>
+
+            <div class="footer-links">
+                <a href="#why-us">Why Us</a>
+                <a href="#interactive-demo">Live Preview</a>
+                <a href="#how-it-works">Process</a>
+                <a href="#features">Capabilities</a>
+                <a href="#faqs">FAQs</a>
+                <a href="/app">Launch Chat</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Campus AI. Built for Educational Excellence.</p>
+        </div>
+    </footer>
+
+    <!-- Cache-Busted Landing Page Interactive JS v11.0 -->
+    <script src="/static/js/landing.js?v=11.0"></script>
+</body>
+</html>

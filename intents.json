@@ -1,0 +1,351 @@
+{
+  "intents": [
+    {
+      "tag": "greetings",
+      "patterns": [
+        "Hi",
+        "Hello",
+        "Hey",
+        "Good morning",
+        "Good afternoon",
+        "Good evening",
+        "Hey there",
+        "Is anyone there?",
+        "Hi bot",
+        "Hello chatbot",
+        "Greetings",
+        "Howdy",
+        "Hi there",
+        "Hola"
+      ],
+      "responses": [
+        "Hello! Welcome to the AI Student Support Center. How can I assist you today?",
+        "Hi there! I'm your virtual campus assistant. Ask me anything about admissions, exams, timings, or campus facilities!",
+        "Good day! How can I help you with your college-related questions today?",
+        "Hey! Welcome! Feel free to ask about fees, library timings, hostel rules, or anything else you need."
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Bye",
+        "See you later",
+        "Goodbye",
+        "I am leaving now",
+        "Have a good day",
+        "Talk to you later",
+        "Exit",
+        "Quit",
+        "See ya",
+        "Got to go",
+        "Bye bot",
+        "Thank you bye",
+        "See you soon"
+      ],
+      "responses": [
+        "Goodbye! Have a wonderful day ahead on campus!",
+        "See you later! Don't hesitate to return if you have more questions.",
+        "Bye! Wishing you all the best with your studies and assignments!",
+        "Take care! Have a productive week ahead."
+      ]
+    },
+    {
+      "tag": "college_timings",
+      "patterns": [
+        "What are the college timings?",
+        "When does the college open?",
+        "At what time do classes start?",
+        "When does college close?",
+        "What are the working hours of the institute?",
+        "Campus operating hours",
+        "Is the college open on weekends?",
+        "Tell me the college schedule",
+        "What time does campus open?",
+        "Working timings of the college",
+        "College hours today"
+      ],
+      "responses": [
+        "The academic campus is open Monday to Saturday from 8:30 AM to 5:30 PM. Administrative offices operate from 9:00 AM to 5:00 PM.",
+        "Regular lecture timings are from 9:00 AM to 4:30 PM (Monday through Friday), and 9:00 AM to 1:00 PM on Saturdays.",
+        "Our college operating hours are 8:30 AM - 5:30 PM on weekdays. The campus remains closed for regular classes on Sundays and public holidays."
+      ]
+    },
+    {
+      "tag": "exam_schedules",
+      "patterns": [
+        "When are the semester exams starting?",
+        "Tell me the exam schedule",
+        "Where can I find the date sheet?",
+        "Midterm exam timetable",
+        "When is the final examination schedule coming?",
+        "Exam dates for B.Tech",
+        "When do end semester exams begin?",
+        "Give me the exam timetable",
+        "What are the dates for mid-semester exams?",
+        "Is the date sheet released yet?",
+        "Practical examination dates"
+      ],
+      "responses": [
+        "Mid-semester examinations usually commence in the second week of October (Odd Semester) and mid-March (Even Semester). End-semester final exams start in December and May.",
+        "The official date sheet is released 3 weeks prior to the examinations on the student portal under the 'Examinations' tab.",
+        "For exact exam dates and practical schedules, please check your student dashboard or download the academic calendar from the controller of examinations notice board."
+      ]
+    },
+    {
+      "tag": "admission_process",
+      "patterns": [
+        "What is the admission process for B.Tech?",
+        "How can I apply for admission?",
+        "What are the eligibility criteria for engineering?",
+        "Entrance exam required for admission",
+        "Do you accept JEE Main scores?",
+        "What documents are required during admission?",
+        "Admission procedure details",
+        "Can I get direct admission?",
+        "How to enroll in computer science?",
+        "What is the cutoff rank for CSE admission?",
+        "Last date to submit admission form"
+      ],
+      "responses": [
+        "Admissions to B.Tech programs are conducted through JEE Main ranking counseling and state entrance examinations, followed by personal verification.",
+        "Eligibility: Minimum 60% aggregate in 10+2 with Physics, Mathematics, and Chemistry/Computer Science, plus a valid rank in national/state engineering entrance exams.",
+        "To apply, visit our online admissions portal at admissions.campus.edu, fill out the application form, upload your 10+2 mark sheets and JEE scorecard, and pay the registration fee."
+      ]
+    },
+    {
+      "tag": "fee_structure",
+      "patterns": [
+        "What is the fee structure for B.Tech?",
+        "How much is the semester fee?",
+        "Tuition fee details",
+        "What is the total fee per year?",
+        "How and where do I pay my college fees?",
+        "Can I pay semester fees in installments?",
+        "Is there any examination fee extra?",
+        "Tell me the hostel and tuition fee breakdown",
+        "Last date to pay semester fee",
+        "Fee receipt download process",
+        "Online fee payment link"
+      ],
+      "responses": [
+        "The tuition fee for B.Tech programs is approximately ₹1,25,000 per academic year (payable in two semester installments of ₹62,500 each).",
+        "Fees can be paid online via Net Banking, UPI, or Debit/Credit Cards through the ERP Student Portal under 'Accounts -> Fee Payment'.",
+        "Additional fees include an annual examination fee of ₹3,000 and a one-time refundable security deposit of ₹10,000 at the time of admission."
+      ]
+    },
+    {
+      "tag": "scholarship_info",
+      "patterns": [
+        "Are there any scholarships available?",
+        "How can I apply for merit scholarship?",
+        "Do you offer financial aid or fee waivers?",
+        "Government scholarship schemes accepted here",
+        "What are the eligibility criteria for scholarship?",
+        "Is there any sports quota scholarship?",
+        "Scholarship for economically weaker sections EWS",
+        "Last date to apply for scholarship",
+        "Merit based fee discount details",
+        "Can I get a scholarship for high CGPA?"
+      ],
+      "responses": [
+        "We offer Merit Scholarships up to 100% tuition fee waiver for students with top 5000 JEE Main ranks or above 95% in 10+2 board examinations.",
+        "Students maintaining a CGPA of 9.0 and above across academic years are eligible for our Academic Excellence Scholarship (25% to 50% tuition waiver).",
+        "The institute also facilitates state and central government scholarship schemes including NSP, Post-Matric, and EWS financial aid. Visit Room 104 (Scholarship Cell) for assistance."
+      ]
+    },
+    {
+      "tag": "assignment_deadlines",
+      "patterns": [
+        "When is the assignment submission deadline?",
+        "How do I submit my lab assignments?",
+        "Where should I upload the project reports?",
+        "What is the penalty for late submission of assignments?",
+        "Can I get an extension for assignment deadline?",
+        "Assignment due date for current semester",
+        "Who checks the sessional assignments?",
+        "Are assignments counted in internal marks?",
+        "Online submission portal for assignments"
+      ],
+      "responses": [
+        "Assignment deadlines are announced by course instructors on the Learning Management System (LMS). Typically, assignments are due within 7 days of posting.",
+        "Late submissions incur a 10% mark deduction per day up to 3 days, after which submissions require special approval from the faculty advisor.",
+        "Please ensure all digital assignments are uploaded in PDF format to the LMS portal before 11:59 PM on the respective due date."
+      ]
+    },
+    {
+      "tag": "library_timings",
+      "patterns": [
+        "What are the library timings?",
+        "When does the central library open and close?",
+        "Is the library open on Sundays or late night?",
+        "How many books can I issue at once?",
+        "What is the fine for returning library books late?",
+        "How to access digital library and e-journals?",
+        "Where is the reading room located?",
+        "Can I bring my own laptop to the library?",
+        "Library membership card procedure",
+        "Online book reservation in library"
+      ],
+      "responses": [
+        "The Central Library operates from 8:00 AM to 10:00 PM on weekdays, and 9:00 AM to 6:00 PM on weekends.",
+        "During examination weeks, the 24/7 Reading Room on the ground floor remains open round the clock.",
+        "B.Tech students can issue up to 5 books at a time for a duration of 14 days. Late returns incur a fine of ₹5 per book per day. Digital journals (IEEE, ACM, Springer) are accessible via campus Wi-Fi."
+      ]
+    },
+    {
+      "tag": "faculty_contacts",
+      "patterns": [
+        "How can I contact my professors?",
+        "Where is the HOD office located?",
+        "Give me the email directory of faculty members",
+        "Faculty visiting hours for doubt clearing",
+        "How to book an appointment with the dean?",
+        "Computer Science HOD contact number",
+        "Who is the first year faculty advisor?",
+        "Professor office locations",
+        "How to contact academic counselor?"
+      ],
+      "responses": [
+        "Faculty office hours for student consultation are generally scheduled between 3:00 PM and 4:30 PM on weekdays.",
+        "You can find the comprehensive faculty directory with official email addresses and cabin numbers on our website under the 'Academics -> Faculty Directory' section.",
+        "To meet the HOD or Dean, please contact the respective department administrative assistant or drop an official email to schedule a prior appointment."
+      ]
+    },
+    {
+      "tag": "hostel_info",
+      "patterns": [
+        "What are the hostel facilities available?",
+        "How much is the annual hostel fee?",
+        "Are AC rooms available in the hostel?",
+        "What is the hostel curfew timing at night?",
+        "How is the food quality in the hostel mess?",
+        "Can I change my hostel room or roommate?",
+        "Is laundry service provided in the hostel?",
+        "How to apply for hostel accommodation?",
+        "Rules and regulations of boys and girls hostel",
+        "Wi-Fi facility inside hostel rooms"
+      ],
+      "responses": [
+        "We have separate, fully-secured hostels for boys and girls with options for single, double, and triple occupancy (AC and Non-AC variants).",
+        "The annual hostel fee (including mess charges, Wi-Fi, and laundry) is ₹85,000 for Non-AC and ₹1,15,000 for AC accommodation.",
+        "Hostel curfew timings are 9:30 PM for regular days and 10:30 PM on weekends. Every hostel block has 24/7 high-speed Wi-Fi, indoor games, gym, and hygienic mess facilities."
+      ]
+    },
+    {
+      "tag": "placement_cell",
+      "patterns": [
+        "Tell me about campus placements",
+        "What is the highest package offered this year?",
+        "What is the average placement salary for CSE?",
+        "Which top companies visit for recruitment?",
+        "When do campus placements start for final year?",
+        "Does the college provide internship assistance?",
+        "Placement eligibility and cutoff CGPA",
+        "Training and placement cell contact details",
+        "How to register for placement drives?",
+        "Placement statistics and placement rate"
+      ],
+      "responses": [
+        "Our Training & Placement Cell maintains a stellar 92%+ placement record for engineering graduates.",
+        "For the recent batch, the Highest Package was ₹44 LPA (offered by a top tech giant) and the Average Package across B.Tech branches was ₹8.5 LPA.",
+        "Top recruiters include Microsoft, Google, Amazon, TCS, Infosys, Wipro, Accenture, and Deloitte. Pre-placement training (aptitude, coding, mock interviews) begins from the 6th semester."
+      ]
+    },
+    {
+      "tag": "attendance_rules",
+      "patterns": [
+        "What is the minimum attendance requirement?",
+        "Is 75% attendance compulsory?",
+        "What happens if my attendance is low?",
+        "How to apply for medical leave for attendance?",
+        "Can I sit for exams with 70% attendance?",
+        "Where can I check my current attendance percentage?",
+        "Rules for attendance condonation",
+        "Does participation in sports give attendance waiver?",
+        "How many classes can I skip per subject?"
+      ],
+      "responses": [
+        "As per university norms, a minimum of 75% attendance in every theory and laboratory subject is mandatory to appear for end-semester examinations.",
+        "Students with attendance between 65% and 74% due to genuine medical reasons or official university sports/co-curricular participation can apply for condonation by submitting medical certificates to the HOD.",
+        "You can check your real-time subject-wise attendance tracking anytime on the ERP Student Portal under 'Academics -> My Attendance'."
+      ]
+    },
+    {
+      "tag": "holiday_list",
+      "patterns": [
+        "Tell me the upcoming holidays",
+        "When is the winter break starting?",
+        "How long are summer vacations?",
+        "Is tomorrow a holiday?",
+        "Provide the annual holiday calendar",
+        "Diwali and Holi vacation dates",
+        "When do semester breaks start?",
+        "List of official gazetted holidays for the institute",
+        "Is Saturday a holiday?"
+      ],
+      "responses": [
+        "The official academic holiday calendar is published at the beginning of each semester. Major vacations include Summer Break (June to mid-July) and Winter Break (late December to early January).",
+        "All national gazetted holidays (Republic Day, Independence Day, Gandhi Jayanti) and major festivals (Diwali, Holi, Eid, Christmas) are observed as campus holidays.",
+        "You can view and download the complete semester holiday list from the 'Notices' section on the college website."
+      ]
+    },
+    {
+      "tag": "courses_offered",
+      "patterns": [
+        "What undergraduate courses are offered here?",
+        "Which engineering branches are available?",
+        "Do you have B.Tech in Artificial Intelligence and Data Science?",
+        "Syllabus and curriculum for Computer Science",
+        "What specialization options are available in B.Tech?",
+        "Is M.Tech or PhD programs available?",
+        "Tell me about the CSE and ECE departments",
+        "Can I change my branch after first year?",
+        "List of departments in the college"
+      ],
+      "responses": [
+        "We offer 4-year B.Tech programs in: Computer Science & Engineering (CSE), Artificial Intelligence & Data Science (AI & DS), Electronics & Communication (ECE), Electrical Engineering (EE), Mechanical Engineering (ME), and Civil Engineering (CE).",
+        "Postgraduate options include M.Tech in Data Science, VLSI Design, and Thermal Engineering, along with doctoral (Ph.D.) research programs across all engineering disciplines.",
+        "Branch change after the 1st year is permitted based on merit, provided the student scores a CGPA of 8.5+ with no backlogs and subject to seat availability."
+      ]
+    },
+    {
+      "tag": "campus_facilities",
+      "patterns": [
+        "What facilities are available on campus?",
+        "Is there a sports complex or gymnasium?",
+        "Tell me about the cafeteria and food courts",
+        "Is campus Wi-Fi free for students?",
+        "Are there medical and first aid facilities on campus?",
+        "Where is the innovation and robotics lab located?",
+        "Do you have banking and ATM facilities inside campus?",
+        "Tell me about student clubs and auditoriums",
+        "Parking facility for student vehicles"
+      ],
+      "responses": [
+        "Our 100-acre green campus features high-speed 5G Wi-Fi across all buildings, a modern Central Library, four air-conditioned food courts, and a 10,000 sq. ft. Innovation & Incubation Center.",
+        "Sports facilities include an Olympic-size swimming pool, cricket and football grounds, synthetic tennis/basketball courts, and an indoor sports complex with a state-of-the-art gym.",
+        "We also provide 24/7 on-campus medical assistance with a resident doctor and ambulance service, plus two on-campus bank branches and three ATMs for student convenience."
+      ]
+    },
+    {
+      "tag": "unknown",
+      "patterns": [
+        "Who won the world cup in 1983?",
+        "Tell me a joke about cats",
+        "What is the stock price of Apple?",
+        "Can you write a poem about rain?",
+        "How to cook pasta?",
+        "Who is the president of Mars?",
+        "Random gibberish question xyz123",
+        "Solve differential equation for quantum mechanics",
+        "What is the best movie of 2025?",
+        "Can you order pizza for me?"
+      ],
+      "responses": [
+        "I'm sorry, I am specifically trained to answer student support and campus-related questions (like timings, exams, fees, admissions, library, hostels, and placements). Could you please rephrase or ask about one of those topics?",
+        "I'm not quite sure about that! As your college support virtual assistant, I specialize in academic schedules, fees, scholarships, campus facilities, and placement details. How can I help you with those?",
+        "That query seems outside my campus knowledge base. Please feel free to ask me about admission procedures, exam date sheets, faculty contacts, or hostel regulations!"
+      ]
+    }
+  ]
+}
