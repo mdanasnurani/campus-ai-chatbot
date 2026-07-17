@@ -98,7 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateApiStatusDisplay();
 
-    // ================= 3. Chat History & Storage Management =================
+    // ================= 3. Chat History & Storage Management (Multi-Session Recents v18.0) =================
+    const SESSIONS_LIST_KEY = 'campus_ai_sessions_v18';
+    const CURRENT_SESSION_ID_KEY = 'campus_ai_active_id_v18';
+
     function scrollToBottom() {
         if (messagesContainer) {
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -115,61 +118,163 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${hours}:${minutes} ${ampm}`;
     }
 
-    function loadChatHistory() {
-        if (!messagesContainer) return;
-        try {
-            const historyJson = localStorage.getItem(STORAGE_KEY);
-            if (!historyJson) return;
+    function initDefaultSessionsIfEmpty() {
+        let sessions = JSON.parse(localStorage.getItem(SESSIONS_LIST_KEY) || 'null');
+        if (!sessions || sessions.length === 0) {
+            const sample1Id = 'sess_sample_1';
+            const sample2Id = 'sess_sample_2';
+            const sample3Id = 'sess_sample_3';
+            sessions = [
+                { id: sample1Id, title: 'Explain Python OOP & Code', timestamp: Date.now() - 3600000 },
+                { id: sample2Id, title: 'Semester Fee Breakdown', timestamp: Date.now() - 7200000 },
+                { id: sample3Id, title: 'Calculus Derivative Step-by-Step', timestamp: Date.now() - 10800000 }
+            ];
+            localStorage.setItem(SESSIONS_LIST_KEY, JSON.stringify(sessions));
 
-            const history = JSON.parse(historyJson);
-            if (Array.isArray(history) && history.length > 0) {
-                if (welcomeScreen) welcomeScreen.style.display = 'none';
-                history.forEach(item => {
-                    appendMessageToDOM(item.sender, item.text, item.timestamp, item.intent, false);
-                });
-                scrollToBottom();
+            // Pre-seed sample session messages
+            localStorage.setItem('campus_ai_msgs_' + sample1Id, JSON.stringify([
+                { sender: 'user', text: 'Explain Object-Oriented Programming (OOP) in Python with clean examples.', timestamp: '10:15 AM' },
+                { sender: 'bot', text: '### Object-Oriented Programming (OOP) in Python\n\nOOP organizes code into **Classes** and **Objects**.\n\n#### 1. Core Concepts:\n* **Class**: A blueprint or template.\n* **Object**: An instance of a class.\n* **Encapsulation**: Hiding internal details using attributes.\n* **Inheritance**: Creating child classes that inherit behaviors.\n\n```python\nclass Student:\n    def __init__(self, name, branch):\n        self.name = name\n        self.branch = branch\n\n    def get_info(self):\n        return f"{self.name} ({self.branch})"\n\ns1 = Student("Rohit Kumar", "Computer Science")\nprint(s1.get_info())\n```', timestamp: '10:15 AM' }
+            ]));
+
+            localStorage.setItem('campus_ai_msgs_' + sample2Id, JSON.stringify([
+                { sender: 'user', text: 'What is the semester examination schedule and B.Tech fee structure?', timestamp: '09:30 AM' },
+                { sender: 'bot', text: '### B.Tech Semester Fee & Examination Schedule\n\n#### 📅 Academic Schedule:\n* **Mid-Semester Exams**: October 12 – October 18\n* **End-Semester Exams**: December 04 – December 20\n\n#### 💳 Fee Structure Summary:\n| Category | Amount (INR) | Due Date |\n| :--- | :--- | :--- |\n| Academic Tuition | ₹65,000 | Nov 15 |\n| Laboratory & Library | ₹8,500 | Nov 15 |\n| Campus Development | ₹4,000 | Nov 15 |\n\n*Note: Scholarships are automatically credited to student profile accounts before the deadline.*', timestamp: '09:31 AM' }
+            ]));
+
+            localStorage.setItem('campus_ai_msgs_' + sample3Id, JSON.stringify([
+                { sender: 'user', text: 'How do I solve the derivative of x^2 * sin(x) step-by-step?', timestamp: '08:10 AM' },
+                { sender: 'bot', text: '### Step-by-Step Derivative Solution\n\nTo differentiate $f(x) = x^2 \\sin(x)$, we use the **Product Rule**:\n$$\\frac{d}{dx}[u \\cdot v] = u\'v + uv\'$$\n\n#### Steps:\n1. Let $u = x^2 \\implies u\' = 2x$\n2. Let $v = \\sin(x) \\implies v\' = \\cos(x)$\n3. Substitute into formula:\n$$f\'(x) = (2x)\\sin(x) + x^2\\cos(x)$$\n\n**Final Result:** `2x*sin(x) + x^2*cos(x)`', timestamp: '08:11 AM' }
+            ]));
+
+            if (!localStorage.getItem(CURRENT_SESSION_ID_KEY)) {
+                localStorage.setItem(CURRENT_SESSION_ID_KEY, sample1Id);
             }
-        } catch (e) {
-            console.error("Failed to load chat history:", e);
-            localStorage.removeItem(STORAGE_KEY);
+        }
+    }
+
+    function renderRecentsList() {
+        const listContainer = document.querySelector('.chat-sessions-list');
+        if (!listContainer) return;
+
+        initDefaultSessionsIfEmpty();
+        const sessions = JSON.parse(localStorage.getItem(SESSIONS_LIST_KEY) || '[]');
+        const activeId = localStorage.getItem(CURRENT_SESSION_ID_KEY);
+
+        listContainer.innerHTML = '';
+        sessions.forEach(sess => {
+            const item = document.createElement('div');
+            item.className = `chat-session-item ${sess.id === activeId ? 'active' : ''}`;
+            item.title = sess.title;
+            item.innerHTML = `<span>${sess.title}</span>`;
+            item.addEventListener('click', () => {
+                switchChatSession(sess.id);
+            });
+            listContainer.appendChild(item);
+        });
+    }
+
+    function switchChatSession(sessionId) {
+        localStorage.setItem(CURRENT_SESSION_ID_KEY, sessionId);
+        renderRecentsList();
+        loadSessionMessages(sessionId);
+        if (window.innerWidth <= 800 && sidebar) {
+            sidebar.classList.remove('open');
+            if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+        }
+    }
+
+    function loadSessionMessages(sessionId) {
+        if (!messagesContainer) return;
+        let innerContainer = messagesContainer.querySelector('.chat-messages-inner-container');
+        if (innerContainer) innerContainer.innerHTML = '';
+
+        const msgsJson = localStorage.getItem('campus_ai_msgs_' + sessionId);
+        if (!msgsJson || JSON.parse(msgsJson).length === 0) {
+            if (welcomeScreen) welcomeScreen.style.display = 'block';
+            return;
+        }
+
+        if (welcomeScreen) welcomeScreen.style.display = 'none';
+        const msgs = JSON.parse(msgsJson);
+        msgs.forEach(item => {
+            appendMessageToDOM(item.sender, item.text, item.timestamp, item.intent, false, false);
+        });
+        scrollToBottom();
+    }
+
+    function loadChatHistory() {
+        initDefaultSessionsIfEmpty();
+        renderRecentsList();
+        const activeId = localStorage.getItem(CURRENT_SESSION_ID_KEY);
+        if (activeId) {
+            loadSessionMessages(activeId);
+        } else {
+            if (welcomeScreen) welcomeScreen.style.display = 'block';
         }
     }
 
     function saveToHistory(sender, text, timestamp, intent = null) {
         try {
-            let history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            history.push({ sender, text, timestamp, intent });
-            if (history.length > 100) {
-                history = history.slice(-100);
+            let activeId = localStorage.getItem(CURRENT_SESSION_ID_KEY);
+            let sessions = JSON.parse(localStorage.getItem(SESSIONS_LIST_KEY) || '[]');
+
+            // If no active session exists when user types, create a new session
+            if (!activeId) {
+                activeId = 'sess_' + Date.now();
+                const cleanWords = text.replace(/[^a-zA-Z0-9 ?]/g, '').trim().split(/\s+/).slice(0, 5).join(' ');
+                const newTitle = cleanWords ? cleanWords + (cleanWords.length < text.length ? '...' : '') : 'New Chat Session';
+                sessions.unshift({ id: activeId, title: newTitle, timestamp: Date.now() });
+                localStorage.setItem(SESSIONS_LIST_KEY, JSON.stringify(sessions));
+                localStorage.setItem(CURRENT_SESSION_ID_KEY, activeId);
+                renderRecentsList();
             }
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+
+            let msgs = JSON.parse(localStorage.getItem('campus_ai_msgs_' + activeId) || '[]');
+            msgs.push({ sender, text, timestamp, intent });
+            if (msgs.length > 200) msgs = msgs.slice(-200);
+            localStorage.setItem('campus_ai_msgs_' + activeId, JSON.stringify(msgs));
+
+            // Move this session to top of Recents list if it isn't already
+            const sessIdx = sessions.findIndex(s => s.id === activeId);
+            if (sessIdx > 0) {
+                const [moved] = sessions.splice(sessIdx, 1);
+                moved.timestamp = Date.now();
+                sessions.unshift(moved);
+                localStorage.setItem(SESSIONS_LIST_KEY, JSON.stringify(sessions));
+                renderRecentsList();
+            } else if (sessIdx === -1 && activeId) {
+                const cleanWords = text.replace(/[^a-zA-Z0-9 ?]/g, '').trim().split(/\s+/).slice(0, 5).join(' ');
+                const newTitle = cleanWords ? cleanWords + (cleanWords.length < text.length ? '...' : '') : 'New Chat Session';
+                sessions.unshift({ id: activeId, title: newTitle, timestamp: Date.now() });
+                localStorage.setItem(SESSIONS_LIST_KEY, JSON.stringify(sessions));
+                renderRecentsList();
+            }
         } catch (e) {
-            console.error("Failed to save chat history:", e);
+            console.error("Failed to save chat history to Recents:", e);
         }
     }
 
-    function clearChatSession() {
-        if (confirm("Are you sure you want to clear your conversation?")) {
-            localStorage.removeItem(STORAGE_KEY);
-            if (messagesContainer) {
-                const rows = messagesContainer.querySelectorAll('.message-row');
-                rows.forEach(row => row.remove());
-            }
-            if (welcomeScreen) {
-                welcomeScreen.style.display = 'block';
-            }
-            if (userInput) userInput.focus();
-            if (window.innerWidth <= 768) {
-                closeMobileSidebar();
-            }
+    function startNewChatSession() {
+        localStorage.removeItem(CURRENT_SESSION_ID_KEY);
+        if (messagesContainer) {
+            let innerContainer = messagesContainer.querySelector('.chat-messages-inner-container');
+            if (innerContainer) innerContainer.innerHTML = '';
+        }
+        if (welcomeScreen) welcomeScreen.style.display = 'block';
+        renderRecentsList();
+        if (userInput) userInput.focus();
+        if (window.innerWidth <= 800 && sidebar) {
+            sidebar.classList.remove('open');
+            if (sidebarOverlay) sidebarOverlay.classList.remove('active');
         }
     }
 
-    if (newChatBtn) newChatBtn.addEventListener('click', clearChatSession);
-    if (clearChatBtn) clearChatBtn.addEventListener('click', clearChatSession);
+    if (newChatBtn) newChatBtn.addEventListener('click', startNewChatSession);
+    if (clearChatBtn) clearChatBtn.addEventListener('click', startNewChatSession);
 
     // ================= 4. DOM Message Appender (Matches style.css EXACTLY) =================
-    function appendMessageToDOM(sender, text, timestamp, intent = null, animate = true) {
+    function appendMessageToDOM(sender, text, timestamp, intent = null, animate = true, saveToStorage = false) {
         if (!messagesContainer) return;
         if (welcomeScreen) welcomeScreen.style.display = 'none';
 
