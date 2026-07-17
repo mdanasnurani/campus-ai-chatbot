@@ -216,17 +216,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="message-actions-bar">
                     <button class="action-icon-btn copy-msg-btn" title="Copy response" type="button">
                         <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        <span class="copy-label">Copy</span>
+                    </button>
+                    <button class="action-icon-btn like-msg-btn" title="Good response" type="button">
+                        <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                    </button>
+                    <button class="action-icon-btn dislike-msg-btn" title="Bad response" type="button">
+                        <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
+                    </button>
+                    <button class="action-icon-btn share-msg-btn" title="Share response" type="button">
+                        <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                     </button>
                     <button class="action-icon-btn regenerate-msg-btn" title="Regenerate response" type="button">
                         <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-                        <span>Regenerate Response</span>
+                    </button>
+                    <button class="action-icon-btn more-msg-btn" title="More options" type="button">
+                        <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                     </button>
                 </div>
             `;
         }
 
-        content.innerHTML = headerHtml + `<div class="message-body">${formattedText}</div>` + actionBarHtml;
+        content.innerHTML = `<div class="message-body">${formattedText}</div>` + actionBarHtml;
 
         if (sender === 'bot') {
             const copyBtn = content.querySelector('.copy-msg-btn');
@@ -234,20 +244,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 copyBtn.addEventListener('click', () => {
                     navigator.clipboard.writeText(text);
                     copyBtn.classList.add('copied');
-                    copyBtn.querySelector('.copy-label').textContent = 'Copied! ✔️';
-                    setTimeout(() => {
-                        copyBtn.classList.remove('copied');
-                        copyBtn.querySelector('.copy-label').textContent = 'Copy';
-                    }, 2000);
+                    setTimeout(() => copyBtn.classList.remove('copied'), 2000);
                 });
             }
+            const likeBtn = content.querySelector('.like-msg-btn');
+            const dislikeBtn = content.querySelector('.dislike-msg-btn');
+            if (likeBtn) likeBtn.addEventListener('click', () => { likeBtn.style.color = '#10B981'; });
+            if (dislikeBtn) dislikeBtn.addEventListener('click', () => { dislikeBtn.style.color = '#EF4444'; });
             const regenBtn = content.querySelector('.regenerate-msg-btn');
-            if (regenBtn) {
-                regenBtn.addEventListener('click', () => {
-                    if (window.lastUserMessageText) {
-                        sendMessage(window.lastUserMessageText);
-                    }
-                });
+            if (regenBtn && window.lastUserMessageText) {
+                regenBtn.addEventListener('click', () => sendMessage(window.lastUserMessageText));
             }
         }
 
