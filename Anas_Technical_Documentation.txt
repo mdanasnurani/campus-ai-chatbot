@@ -1,0 +1,127 @@
+================================================================================
+                     CAMPUS AI - TECHNICAL DOCUMENTATION
+               Engineered & Architecture Lead by: ANAS
+================================================================================
+
+1. SYSTEM OVERVIEW & MISSION
+--------------------------------------------------------------------------------
+Campus AI is an enterprise-grade academic chatbot platform built specifically for university environments, student support departments, and technical engineering curricula. Designed and engineered from the ground up by Lead Architect ANAS, the platform bridges the gap between ultra-fast rule-based FAQ resolvers and complex generative AI models.
+
+Standard LLM chatbots often suffer from latency (2-5 seconds per response) and high token costs when resolving repetitive campus administrative queries (e.g., tuition deadlines, hostel rules, fee structures). Campus AI solves this by implementing a dual-tier processing engine: an instantaneous local NLP vector classifier for immediate campus FAQs (~100ms latency), backed by a state-of-the-art large language model (Llama-3.3-70B-Versatile via Groq) for deep academic tutoring in mathematics, algorithms, Python, C++, and complex reasoning.
+
+
+2. HYBRID SYSTEM ARCHITECTURE (ENGINEERED BY ANAS)
+--------------------------------------------------------------------------------
+When a student submits a query via the frontend UI, the request undergoes multi-stage routing inside chatbot.py. Below is the complete step-by-step algorithmic pipeline:
+
+[Step 01] Input Preprocessing & Normalization:
+The incoming text string is stripped of excessive whitespace, converted to lowercase, and normalized using NLTK tokenization (nltk.word_tokenize) to remove noise and punctuation artifacts.
+
+[Step 02] TF-IDF Vectorization & Cosine Similarity Evaluation:
+The cleaned query is transformed into a numerical vector via scikit-learn's TfidfVectorizer. The engine computes cosine similarity against all canonical training patterns indexed inside intents.json.
+
+[Step 03] Threshold Verification (Confidence >= 0.25):
+If the highest cosine similarity match meets or exceeds the confidence threshold (0.25), the system immediately retrieves a randomized verified institutional response from the matched intent tag and returns it to the client (~100ms latency).
+
+[Step 04] Intelligent LLM Fallback Routing (Groq API):
+If the query score is below threshold (< 0.25) or contains complex technical programming syntax, the request is seamlessly handed off to Llama-3.3-70B-Versatile along with an academic system prompt to generate a comprehensive, structured response with Markdown formatting.
+
+
+3. SETUP & INSTALLATION GUIDE
+--------------------------------------------------------------------------------
+Campus AI is engineered to run locally on Windows, macOS, or Linux, as well as deploy effortlessly to serverless cloud providers such as Vercel.
+
+# Step A: Clone the repository from GitHub
+git clone https://github.com/mdanasnurani/campus-ai-chatbot.git
+cd campus-ai-chatbot
+
+# Step B: Create and activate a Python virtual environment
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Step C: Install required backend packages
+pip install -r requirements.txt
+
+# Step D: Launch the local Flask server
+python app.py
+
+Once started, open your web browser and navigate to http://localhost:5000 to view the landing page, or http://localhost:5000/app to launch the ChatGPT-inspired interface.
+
+
+4. NLP INTENT ENGINE & KNOWLEDGE BASE (intents.json)
+--------------------------------------------------------------------------------
+The local classification engine relies on intents.json, which serves as the canonical institutional knowledge repository. Administrators and curriculum developers can extend the bot's capabilities simply by appending new JSON tag blocks without altering Python logic.
+
+Example Schema Definition:
+{
+  "intents": [
+    {
+      "tag": "college_fees",
+      "patterns": [
+        "what is the tuition fee for btech semester",
+        "how much does hostel accommodation cost",
+        "tell me about fee payment deadlines"
+      ],
+      "responses": [
+        "Tuition fees for the undergraduate B.Tech program are due by August 15th for the Fall semester. Detailed breakdowns can be accessed via the student portal under Accounts."
+      ]
+    }
+  ]
+}
+
+
+5. GROQ LLM FALLBACK & ACADEMIC TUTORING
+--------------------------------------------------------------------------------
+For inquiries outside the scope of static campus administrative rules—such as explaining Object-Oriented Programming (OOP) in Python, solving calculus differential equations, or debugging C++ pointers—Campus AI connects to the Groq inference engine.
+
+The backend utilizes the Llama-3.3-70B-Versatile model. Users can dynamically inject their own Groq API keys via the Settings modal inside the chat sidebar, allowing zero-downtime key rotation and custom rate-limit management.
+
+
+6. FRONTEND DESIGN & UI SPECIFICATIONS
+--------------------------------------------------------------------------------
+The user interface (templates/chat.html + static/css/style.css) is built entirely using vanilla HTML5, CSS3, and JavaScript, eliminating heavy framework bundle sizes while achieving a pristine, ChatGPT-accurate dark aesthetic (#000000 canvas and #0D0D0D fixed sidebar).
+
+- Color Palette: True Dark Mode (#000000 main canvas, #0D0D0D sidebar, #1E293B message bubbles, #38BDF8 active accent).
+- Typography: Primary UI text in Inter (300-700 weight); Headings & branding in Outfit (600-800 weight).
+- Markdown Rendering: Integrated marked.min.js dynamically formats headings, bullet lists, bold text, tables, and fenced code blocks.
+- Responsive Navigation: Universal desktop & mobile collapse engine (v23.0). Sidebar glides to margin-left: -260px on desktop with smooth cubic-bezier transitions.
+
+
+7. MULTI-SESSION LOCALSTORAGE ENGINE (v20.0 - v21.0)
+--------------------------------------------------------------------------------
+To maintain absolute user privacy and zero server database overhead, Campus AI stores all conversation histories locally within the browser's localStorage engine under versioned keys (campus_ai_sessions_v20 and campus_ai_msgs_[sessionId]).
+
+- Zero Default History: The application initializes with an empty state (0 items in Recents), ensuring complete privacy upon fresh launch.
+- Discrete Session Deletion: Each saved conversation row features an integrated trash icon, allowing selective one-by-one session pruning without bulk data destruction.
+- Instant Session Switching: Clicking any recent session dynamically swaps the active DOM message tree in under 10 milliseconds.
+
+
+8. UNIVERSAL SHARE CONVERSATION ENGINE (v22.0)
+--------------------------------------------------------------------------------
+Campus AI includes a comprehensive sharing subsystem engineered by ANAS:
+- Native Mobile/Desktop OS Sharing: Clicking the top-right Share button invokes the browser's native navigator.share API, enabling direct transmission via WhatsApp, Telegram, Mail, or iMessage.
+- Automatic Clipboard Fallback: On desktop browsers lacking native OS share dialogs, the system automatically compiles a clean Markdown summary of the entire session and copies both the transcript and live cloud URL directly to the clipboard with a sleek toast notification.
+- Per-Message Sharing: Every bot response features its own independent share icon alongside Copy, Like, and Regenerate controls.
+
+
+9. BACKEND API REFERENCE (/chat)
+--------------------------------------------------------------------------------
+The primary endpoint accepts POST requests containing the student's prompt and returns structured JSON containing the generated answer, classified intent tag, and confidence score.
+
+HTTP POST /chat
+Headers: Content-Type: application/json
+Request Body:  { "message": "Explain recursion in Python with a clean example." }
+Response Body: {
+                 "response": "Recursion occurs when a function calls itself...",
+                 "intent": "groq_llm_fallback",
+                 "confidence": 0.89,
+                 "timestamp": "01:25 AM"
+               }
+
+
+10. LEAD ARCHITECT & AUTHOR CREDITS
+--------------------------------------------------------------------------------
+Platform Name: Campus AI
+Lead System Architect & Core Developer: ANAS
+All intellectual property, dual-tier hybrid NLP routing, responsive UI architecture, and browser storage mechanisms were engineered exclusively by ANAS.
+================================================================================
