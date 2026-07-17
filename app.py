@@ -29,6 +29,12 @@ def chat_app():
     """Render the main ChatGPT-inspired chat interface."""
     return render_template('chat.html')
 
+@app.route('/docs')
+@app.route('/documentation')
+def documentation():
+    """Render the Comprehensive Technical Documentation & Architecture Hub by Anas."""
+    return render_template('docs.html')
+
 @app.route('/chat', methods=['POST'])
 def chat():
     """
