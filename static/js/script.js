@@ -165,13 +165,62 @@ document.addEventListener('DOMContentLoaded', () => {
         sessions.forEach(sess => {
             const item = document.createElement('div');
             item.className = `chat-session-item ${sess.id === activeId ? 'active' : ''}`;
+            item.style.display = 'flex';
+            item.style.justifyContent = 'space-between';
+            item.style.alignItems = 'center';
             item.title = sess.title;
-            item.innerHTML = `<span>${sess.title}</span>`;
-            item.addEventListener('click', () => {
+            item.innerHTML = `
+                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">${sess.title}</span>
+                <button class="delete-session-btn" title="Delete conversation" style="background: none; border: none; color: #6B7280; cursor: pointer; padding: 2px 4px; display: flex; align-items: center; border-radius: 4px; transition: color 0.2s;" type="button">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>
+            `;
+            item.addEventListener('click', (e) => {
+                if (e.target.closest('.delete-session-btn')) return;
                 switchChatSession(sess.id);
             });
+
+            const delBtn = item.querySelector('.delete-session-btn');
+            if (delBtn) {
+                delBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteChatSession(sess.id);
+                });
+                delBtn.addEventListener('mouseover', () => delBtn.style.color = '#EF4444');
+                delBtn.addEventListener('mouseout', () => delBtn.style.color = '#6B7280');
+            }
+
             listContainer.appendChild(item);
         });
+    }
+
+    function deleteChatSession(sessionId) {
+        if (!confirm("Delete this conversation?")) return;
+        let sessions = JSON.parse(localStorage.getItem(SESSIONS_LIST_KEY) || '[]');
+        sessions = sessions.filter(s => s.id !== sessionId);
+        localStorage.setItem(SESSIONS_LIST_KEY, JSON.stringify(sessions));
+        localStorage.removeItem('campus_ai_msgs_' + sessionId);
+
+        const activeId = localStorage.getItem(CURRENT_SESSION_ID_KEY);
+        if (activeId === sessionId) {
+            if (sessions.length > 0) {
+                switchChatSession(sessions[0].id);
+            } else {
+                startNewChatSession();
+            }
+        } else {
+            renderRecentsList();
+        }
+    }
+
+    function clearAllChatSessions() {
+        if (confirm("Are you sure you want to delete ALL saved chat history?")) {
+            let sessions = JSON.parse(localStorage.getItem(SESSIONS_LIST_KEY) || '[]');
+            sessions.forEach(s => localStorage.removeItem('campus_ai_msgs_' + s.id));
+            localStorage.removeItem(SESSIONS_LIST_KEY);
+            localStorage.removeItem(CURRENT_SESSION_ID_KEY);
+            startNewChatSession();
+        }
     }
 
     function switchChatSession(sessionId) {
@@ -271,7 +320,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (newChatBtn) newChatBtn.addEventListener('click', startNewChatSession);
-    if (clearChatBtn) clearChatBtn.addEventListener('click', startNewChatSession);
+    if (clearChatBtn) clearChatBtn.addEventListener('click', clearAllChatSessions);
+    const deleteAllBtn = document.getElementById('delete-all-sessions-btn');
+    if (deleteAllBtn) deleteAllBtn.addEventListener('click', clearAllChatSessions);
 
     // ================= 4. DOM Message Appender (Matches style.css EXACTLY) =================
     function appendMessageToDOM(sender, text, timestamp, intent = null, animate = true, saveToStorage = false) {
