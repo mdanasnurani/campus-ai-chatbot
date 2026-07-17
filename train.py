@@ -16,7 +16,9 @@ from sklearn.metrics import classification_report, accuracy_score
 
 # Ensure NLTK resources are available
 import ssl
+# pyrefly: ignore [missing-import]
 import nltk
+# pyrefly: ignore [missing-import]
 from nltk.stem import WordNetLemmatizer, PorterStemmer
 
 def ensure_nltk_resources():
