@@ -5,11 +5,16 @@ Handles web routes, user chat processing, and quick question suggestions.
 Loads the trained scikit-learn Naive Bayes NLP model upon startup.
 """
 
+import os
 from datetime import datetime
 from flask import Flask, render_template, request, jsonify, make_response
 from chatbot import get_bot_response, chatbot_engine
 
-app = Flask(__name__, template_folder='templates', static_folder='static')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(__name__, 
+            template_folder=os.path.join(BASE_DIR, 'templates'), 
+            static_folder=os.path.join(BASE_DIR, 'static'),
+            static_url_path='/static')
 app.config['JSON_SORT_KEYS'] = False
 
 @app.route('/')
