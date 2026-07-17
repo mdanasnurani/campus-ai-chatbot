@@ -282,8 +282,66 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function showShareToast(message) {
+        let toast = document.getElementById('share-toast-notification');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'share-toast-notification';
+            toast.style.cssText = 'position: fixed; bottom: 24px; right: 24px; background: #1E293B; color: #F8FAFC; padding: 12px 20px; border-radius: 10px; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 10px 25px rgba(0,0,0,0.5); font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 10px; z-index: 10000; transition: opacity 0.3s, transform 0.3s; opacity: 0; transform: translateY(10px); pointer-events: none;';
+            document.body.appendChild(toast);
+        }
+        toast.innerHTML = `<span>↗️</span><span>${message}</span>`;
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px)';
+        }, 3500);
+    }
+
+    function handleShareConversation() {
+        const activeId = localStorage.getItem(CURRENT_SESSION_ID_KEY);
+        let title = "Campus AI Conversation";
+        let summaryText = "Check out this AI conversation on Campus AI:\n\n";
+
+        if (activeId) {
+            const sessions = JSON.parse(localStorage.getItem(SESSIONS_LIST_KEY) || '[]');
+            const activeSess = sessions.find(s => s.id === activeId);
+            if (activeSess) title = activeSess.title;
+
+            const msgsJson = localStorage.getItem('campus_ai_msgs_' + activeId);
+            if (msgsJson) {
+                const msgs = JSON.parse(msgsJson);
+                msgs.forEach(m => {
+                    const prefix = m.sender === 'user' ? '🧑 Student:' : '🤖 Campus AI:';
+                    summaryText += `${prefix} ${m.text}\n\n`;
+                });
+            }
+        }
+
+        const shareUrl = window.location.origin;
+        summaryText += `Shared via Campus AI: ${shareUrl}`;
+
+        if (navigator.share) {
+            navigator.share({
+                title: title,
+                text: summaryText,
+                url: shareUrl
+            }).catch(e => {
+                console.log('Native share cancelled/failed, copying to clipboard instead:', e);
+                navigator.clipboard.writeText(summaryText);
+                showShareToast('Conversation summary copied to clipboard!');
+            });
+        } else {
+            navigator.clipboard.writeText(summaryText);
+            showShareToast('Full chat transcript & link copied to clipboard!');
+        }
+    }
+
     if (newChatBtn) newChatBtn.addEventListener('click', startNewChatSession);
     if (clearChatBtn) clearChatBtn.addEventListener('click', clearAllChatSessions);
+    const headerShareBtn = document.querySelector('.btn-share-header');
+    if (headerShareBtn) headerShareBtn.addEventListener('click', handleShareConversation);
 
     // ================= 4. DOM Message Appender (Matches style.css EXACTLY) =================
     function appendMessageToDOM(sender, text, timestamp, intent = null, animate = true, saveToStorage = false) {
@@ -368,6 +426,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const dislikeBtn = content.querySelector('.dislike-msg-btn');
             if (likeBtn) likeBtn.addEventListener('click', () => { likeBtn.style.color = '#10B981'; });
             if (dislikeBtn) dislikeBtn.addEventListener('click', () => { dislikeBtn.style.color = '#EF4444'; });
+            const shareBtn = content.querySelector('.share-msg-btn');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', () => {
+                    const responseText = `💡 Campus AI Response:\n\n${text}\n\nShared via Campus AI: ${window.location.origin}`;
+                    if (navigator.share) {
+                        navigator.share({
+                            title: 'Campus AI Response',
+                            text: responseText,
+                            url: window.location.origin
+                        }).catch(e => {
+                            navigator.clipboard.writeText(responseText);
+                            showShareToast('Response summary copied to clipboard!');
+                        });
+                    } else {
+                        navigator.clipboard.writeText(responseText);
+                        showShareToast('Response & link copied to clipboard!');
+                    }
+                });
+            }
             const regenBtn = content.querySelector('.regenerate-msg-btn');
             if (regenBtn && window.lastUserMessageText) {
                 regenBtn.addEventListener('click', () => sendMessage(window.lastUserMessageText));
