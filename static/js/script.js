@@ -284,8 +284,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (newChatBtn) newChatBtn.addEventListener('click', startNewChatSession);
     if (clearChatBtn) clearChatBtn.addEventListener('click', clearAllChatSessions);
-    const deleteAllBtn = document.getElementById('delete-all-sessions-btn');
-    if (deleteAllBtn) deleteAllBtn.addEventListener('click', clearAllChatSessions);
 
     // ================= 4. DOM Message Appender (Matches style.css EXACTLY) =================
     function appendMessageToDOM(sender, text, timestamp, intent = null, animate = true, saveToStorage = false) {
