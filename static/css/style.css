@@ -648,19 +648,161 @@ body {
 
 /* ================= 7. Mobile Responsive Adjustments ================= */
 @media (max-width: 800px) {
+    html, body {
+        overflow-x: hidden !important;
+        width: 100%;
+        max-width: 100vw;
+    }
+
     .sidebar {
         position: fixed;
         left: 0;
         top: 0;
         transform: translateX(-100%);
+        z-index: 999;
     }
     
     .sidebar.open {
         transform: translateX(0);
     }
     
+    header.chat-header {
+        padding: 0.65rem 0.75rem !important;
+        gap: 0.5rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .header-left {
+        gap: 0.5rem;
+    }
+
+    .header-left h1 {
+        font-size: 1rem !important;
+    }
+
+    .header-right {
+        gap: 0.4rem;
+    }
+
+    .header-nav-link {
+        padding: 0.35rem 0.65rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    .btn-share-header {
+        padding: 0.35rem 0.65rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    .btn-share-header span {
+        display: inline;
+    }
+
+    .chat-messages {
+        padding: 1rem 0.75rem 150px !important;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .chat-messages-inner-container {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .welcome-screen {
+        margin: 2rem auto 1.5rem !important;
+        padding: 0 0.5rem !important;
+        width: 100%;
+        box-sizing: border-box;
+        word-wrap: break-word;
+    }
+
+    .welcome-screen h2 {
+        font-size: 1.32rem !important;
+        line-height: 1.35 !important;
+        margin-bottom: 1.5rem !important;
+        word-wrap: break-word;
+    }
+
+    .quick-topics-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.65rem !important;
+        width: 100%;
+        padding: 0 0.25rem;
+        box-sizing: border-box;
+    }
+
+    .topic-card {
+        padding: 0.85rem 1rem !important;
+        gap: 0.7rem !important;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .topic-card h4 {
+        font-size: 0.88rem !important;
+    }
+
+    .topic-card p {
+        font-size: 0.78rem !important;
+    }
+
+    .message-row {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1.4rem !important;
+        box-sizing: border-box;
+    }
+
+    .message-content {
+        max-width: 90% !important;
+        padding: 0.75rem 0.95rem !important;
+        font-size: 0.92rem !important;
+        word-wrap: break-word;
+    }
+
     .chat-input-container {
         left: 0;
-        padding: 0.65rem 0.85rem 1rem;
+        right: 0;
+        width: 100%;
+        padding: 0.6rem 0.75rem 0.85rem !important;
+        box-sizing: border-box;
+    }
+
+    .input-wrapper {
+        padding: 0.38rem 0.45rem 0.38rem 0.55rem !important;
+        gap: 0.4rem !important;
+    }
+
+    .input-wrapper textarea {
+        font-size: 0.92rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    header.chat-header {
+        padding: 0.55rem 0.6rem !important;
+    }
+
+    .header-left h1 {
+        font-size: 0.95rem !important;
+    }
+
+    .btn-share-header span {
+        display: none; /* Hide Share text on tiny iPhone screens, keep crisp share icon */
+    }
+
+    .btn-share-header {
+        padding: 0.38rem 0.55rem !important;
+    }
+
+    .welcome-screen h2 {
+        font-size: 1.22rem !important;
+    }
+
+    .message-content {
+        max-width: 94% !important;
+        padding: 0.7rem 0.85rem !important;
     }
 }
