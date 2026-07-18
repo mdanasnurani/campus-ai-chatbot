@@ -22,7 +22,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+h1, h2, h3, h4, .brand-name, .header-left h1, .welcome-screen h2, .topic-card h4 {
+    font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif !important;
+}
+
+pre, code, .message-body pre, .message-body code {
+    font-family: 'Fira Code', 'JetBrains Mono', monospace !important;
 }
 
 body {
