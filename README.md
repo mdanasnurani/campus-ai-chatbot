@@ -2,6 +2,11 @@
 
 A state-of-the-art, high-converting **AI Student Support Assistant** featuring a **Silicon Valley Linear/Vercel-inspired Blue + White + Black Aesthetic (v11.0)**, an interactive **3D Neural Constellation Canvas**, a **Live Playground Terminal**, and a full **MERN/Flask Hybrid NLP Engine** (`Scikit-Learn TF-IDF Naive Bayes + Generative AI LLM Integration`).
 
+<img width="1916" height="912" alt="Image" src="https://github.com/user-attachments/assets/f23c0f1c-2782-4941-a144-02b52390257d" />
+<img width="1917" height="912" alt="Image" src="https://github.com/user-attachments/assets/fd83dc1e-2a10-4028-b829-dc2fde310231" />
+<img width="1916" height="911" alt="Image" src="https://github.com/user-attachments/assets/d2a76e33-eb22-4371-8b0d-d0f56b02ec09" />
+
+
 ---
 
 ## 💻 How to Run in VS Code on ANY Other Device (Windows / Mac / Linux)
